@@ -2,11 +2,15 @@ import sqlite3
 connection = sqlite3.connect('..\data\warm-up-DB-205.db')
 cursor = connection.cursor()
 
-def QueryAdresses(key, column):
+def QueryTop10(key, column, return_column):
     key = '\'' + key + '\'' # pad key with quotes to ensure dashes, spaces, and underscores are included
     # Get only addresses from tblCrimes table with neighborhood ID
-    cursor.execute('SELECT INCIDENT_ADDRESS, COUNT(INCIDENT_ADDRESS) FROM tblCrimes where {cl}={ky} GROUP BY INCIDENT_'
-                   'ADDRESS ORDER BY COUNT(INCIDENT_ADDRESS) DESC LIMIT 10'.format(cl=column, ky=key))
+    cursor.execute('SELECT {rc}, COUNT({rc}) '
+                   'FROM tblCrimes '
+                   'LEFT JOIN tblOffenseCode USING(OFFENSE_CODE) '
+                   'WHERE {cl}={ky} '
+                   'GROUP BY {rc} ORDER '
+                   'BY COUNT({rc}) DESC LIMIT 10'.format(cl=column, ky=key, rc=return_column))
     row = cursor.fetchall()
     return_string = ""
 
@@ -24,9 +28,6 @@ def QueryAdresses(key, column):
 def QueryNumCrimes(location):
     return False
 
-def QueryCommonCrimes(location):
-    return False
 
-
-str = QueryAdresses('jefferson-park', 'NEIGHBORHOOD_ID')
+str = QueryTop10('goldsmith', 'NEIGHBORHOOD_ID', 'OFFENSE_TYPE_NAME')
 print(str)
