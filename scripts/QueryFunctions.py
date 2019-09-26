@@ -1,12 +1,18 @@
 import sqlite3
+
 connection = sqlite3.connect('..\data\warm-up-DB-205.db')
 cursor = connection.cursor()
 
-def QueryAdresses(key, column):
-    key = '\'' + key + '\'' # pad key with quotes to ensure dashes, spaces, and underscores are included
+
+def QueryTop10(key, column, return_column):
+    key = '\'' + key + '\''  # pad key with quotes to ensure dashes, spaces, and underscores are included
     # Get only addresses from tblCrimes table with neighborhood ID
-    cursor.execute('SELECT INCIDENT_ADDRESS, COUNT(INCIDENT_ADDRESS) FROM tblCrimes where {cl}={ky} GROUP BY INCIDENT_'
-                   'ADDRESS ORDER BY COUNT(INCIDENT_ADDRESS) DESC LIMIT 10'.format(cl=column, ky=key))
+    cursor.execute('SELECT {rc}, COUNT({rc}) '
+                   'FROM tblCrimes '
+                   'LEFT JOIN tblOffenseCode USING(OFFENSE_CODE) '
+                   'WHERE {cl}={ky} '
+                   'GROUP BY {rc} ORDER '
+                   'BY COUNT({rc}) DESC LIMIT 10'.format(cl=column, ky=key, rc=return_column))
     row = cursor.fetchall()
     return_string = ""
 
@@ -21,12 +27,24 @@ def QueryAdresses(key, column):
 
     return return_string
 
-def QueryNumCrimes(location):
-    return False
 
-def QueryCommonCrimes(location):
-    return False
+def QueryNumCrimes(key, column):
+    key = '\'' + key + '\''
+    cursor.execute('SELECT COUNT(*) FROM tblCrimes '
+                   'LEFT JOIN tblOffenseCode USING(OFFENSE_CODE) '
+                   'WHERE {cl}={ky}'.format(cl=column, ky=key))
+
+    return_string = "Total number of crimes in that {cl}: ".format(cl=column) + cursor.fetchall()
+
+    return return_string
 
 
-str = QueryAdresses('jefferson-park', 'NEIGHBORHOOD_ID')
-print(str)
+def QueryOne(key, column, return_column):
+    key = '\'' + key + '\''
+    cursor.execute('SELECT {rc} FROM tblCrimes '
+                   'LEFT JOIN tblOffenseCode USING(OFFENSE_CODE)'
+                   'where {cl}={ky}'.format(cl=column, ky=key, rc=return_column))
+
+    return_string = "The {rc} for that {cl} is: ".format(cl=column, rc=return_column) + cursor.fetchall()
+
+    return return_string
