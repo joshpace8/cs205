@@ -7,7 +7,7 @@ def QueryTop10(key, column, return_column):
     # Get only addresses from tblCrimes table with neighborhood ID
     cursor.execute('SELECT {rc}, COUNT({rc}) '
                    'FROM tblCrimes '
-                   'LEFT JOIN tblOffenseCode USING(OFFENSE_CODE) '
+                   'LEFT JOIN tblOffenseCode USING(fld_offense_code) '
                    'WHERE {cl}={ky} '
                    'GROUP BY {rc} ORDER '
                    'BY COUNT({rc}) DESC LIMIT 10'.format(cl=column, ky=key, rc=return_column))
@@ -29,5 +29,5 @@ def QueryNumCrimes(location):
     return False
 
 
-str = QueryTop10('goldsmith', 'NEIGHBORHOOD_ID', 'OFFENSE_TYPE_NAME')
+str = QueryTop10('goldsmith', 'fld_neighborhood_id', 'fld_offense_type')
 print(str)
