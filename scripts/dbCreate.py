@@ -10,7 +10,7 @@ import csv
 def connect_database():    
     #database
     try:
-        connection = sq.connect('warm-up-DB-205.db')
+        connection = sq.connect('../data/warm-up-DB-205.db')
         print("Database was created successfully locally")
         
         
@@ -48,7 +48,7 @@ def connect_database():
     print("Done Creating tblOffenseCode")
     
     #Open csv for crimes
-    with open("crime_final.csv", newline = '') as csvfile:
+    with open("../data/crime_final.csv", newline = '') as csvfile:
         crime_info = csv.reader(csvfile)
         next(crime_info)
         for crime_row in crime_info:
@@ -100,7 +100,7 @@ def connect_database():
     print("Done Inserting into tblCrimes")
     
     #Open csv for crimes
-    with open("offense_codes_final.csv", newline = '') as csvfile:
+    with open("../data/offense_codes_final.csv", newline = '') as csvfile:
         offense_info = csv.reader(csvfile)
         next(offense_info)
         for offense_row in offense_info:
