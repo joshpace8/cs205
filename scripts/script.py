@@ -1,4 +1,11 @@
 import dbCreate
-import QueryFunctions
+# from dbCreate import connect_database
+# # dbCreate.connect_database()
+import QueryFunctions as qf
 
-dbCreate.connect_database()
+k = 'montbello'
+c = 'fld_neighborhood_id'
+rc = 'fld_offense_category'
+data = qf.QueryTop10(k, c, rc)
+
+print(data)
