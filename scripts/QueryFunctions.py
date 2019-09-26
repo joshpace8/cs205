@@ -31,10 +31,10 @@ def QueryTop10(key, column, return_column):
 def QueryNumCrimes(key, column):
     key = '\'' + key + '\''
     cursor.execute('SELECT COUNT(*) FROM tblCrimes '
-                   'LEFT JOIN tblOffenseCode USING(OFFENSE_CODE) '
+                   'LEFT JOIN tblOffenseCode USING(fld_offense_code) '
                    'WHERE {cl}={ky}'.format(cl=column, ky=key))
 
-    return_string = "Total number of crimes in that {cl}: ".format(cl=column) + cursor.fetchall()
+    return_string = "Total number of crimes in {ky}: ".format(ky=key) + str(cursor.fetchall())
 
     return return_string
 
@@ -42,7 +42,7 @@ def QueryNumCrimes(key, column):
 def QueryOne(key, column, return_column):
     key = '\'' + key + '\''
     cursor.execute('SELECT {rc} FROM tblCrimes '
-                   'LEFT JOIN tblOffenseCode USING(OFFENSE_CODE)'
+                   'LEFT JOIN tblOffenseCode USING(fdl_offense_code)'
                    'where {cl}={ky}'.format(cl=column, ky=key, rc=return_column))
 
     return_string = "The {rc} for that {cl} is: ".format(cl=column, rc=return_column) + cursor.fetchall()
