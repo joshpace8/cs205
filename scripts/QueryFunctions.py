@@ -1,15 +1,41 @@
 import sqlite3
 
-connection = sqlite3.connect('..\data\warm-up-DB-205.db')
+connection = sqlite3.connect('../data/warm-up-DB-205.db')
 cursor = connection.cursor()
 
+userInput = {"incident id": "INCIDENT_ID",
+             "incident": "INCIDENT_ID",
+             "offense id": "OFFENSE_ID",
+             "offense": "OFFENSE_ID",
+             "occurred": "FIRST_OCCURRENCE_DATE",
+             "date": "FIRST_OCCURRENCE_DATE",
+             "time": "FIRST_OCCURRENCE_DATE",
+             "first occurrence": "FIRST_OCCURRENCE_DATE",
+             "first occurred": "FIRST_OCCURRENCE_DATE",
+             "reported date": "REPORTED_DATE",
+             "reported": "REPORTED_DATE",
+             "incident address": "INCIDENT_ADDRESS",
+             "address": "INCIDENT_ADDRESS",
+             "location": "INCIDENT_ADDRESS",
+             "precinct id": "PRECINCT_ID",
+             "precinct": "PRECINCT_ID",
+             "neighborhood id": "NEIGHBORHOOD_ID",
+             "neighborhood": "NEIGHBORHOOD_ID",
+             "offense code": "OFFENSE_CODE",
+             "code": "OFFENSE_CODE",
+             "offense name": "OFFENSE_TYPE_NAME",
+             "offense category": "OFFENSE_CATEGORY_NAME",
+             "crime": "IS_CRIME",
+             "is crime": "IS_CRIME",
+             "traffic": "IS_TRAFFIC",
+             "is traffic": "IS_TRAFFIC"}
 
 def QueryTop10(key, column, return_column):
     key = '\'' + key + '\''  # pad key with quotes to ensure dashes, spaces, and underscores are included
     # Get only addresses from tblCrimes table with neighborhood ID
     cursor.execute('SELECT {rc}, COUNT({rc}) '
                    'FROM tblCrimes '
-                   'LEFT JOIN tblOffenseCode USING(OFFENSE_CODE) '
+                   'LEFT JOIN tblOffenseCode USING(fld_offense_code) '
                    'WHERE {cl}={ky} '
                    'GROUP BY {rc} ORDER '
                    'BY COUNT({rc}) DESC LIMIT 10'.format(cl=column, ky=key, rc=return_column))
