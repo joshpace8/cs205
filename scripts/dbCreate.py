@@ -7,25 +7,25 @@ Created on Thu Sep 19 16:30:44 2019
 import sqlite3 as sq
 import csv
 
+
 def connect_database():    
-    #database
+    # database
     try:
         connection = sq.connect('../data/warm-up-DB-205.db')
         print("Database was created successfully locally")
-        
-        
+
     except sq.Error as err:
-        print("Check the database conncetion, error", err)
+        print("Check the database connection, error", err)
     
     c = connection.cursor()
     
-    #Drop the tables
+    # Drop the tables
     c.execute("""DROP TABLE IF EXISTS tblCrimes;""")
     connection.commit()
     c.execute("""DROP TABLE IF EXISTS tblOffenseCode;""")
     connection.commit()
     
-    #Creating the first table
+    # Creating the first table
     c.execute("""CREATE TABLE IF NOT EXISTS tblCrimes
                   (fld_incident_id TEXT,
                   fld_offense_id TEXT,
@@ -38,7 +38,7 @@ def connect_database():
     
     print("Done Creating tblCrimes")
     
-    #Creating the second table
+    # Creating the second table
     c.execute("""CREATE TABLE tblOffenseCode
                   (fld_offense_type TEXT,
                   fld_offense_category TEXT,
