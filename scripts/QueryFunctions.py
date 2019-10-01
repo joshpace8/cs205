@@ -76,20 +76,3 @@ def QueryOne(key, column, return_column):
     return_string = "The {rc} for that {cl} is: ".format(cl=column, rc=return_column) + cursor.fetchone()[0]
 
     return return_string
-
-
-def userQuery():
-    input_string = input(" ")
-    key, col, return_col = input_string.rsplit(' ', 2)
-
-    for i in userInput:
-        if col in i:
-            col_real = userInput[col]
-        if return_col in i:
-            return_real = userInput[return_col]
-
-    d = QueryTop10(key, col_real, return_real)
-    print(d)
-
-
-userQuery()
