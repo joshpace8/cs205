@@ -3,32 +3,34 @@ import sqlite3
 connection = sqlite3.connect('../data/warm-up-DB-205.db')
 cursor = connection.cursor()
 
-userInput = {"incident id": "INCIDENT_ID",
-             "incident": "INCIDENT_ID",
-             "offense id": "OFFENSE_ID",
-             "offense": "OFFENSE_ID",
-             "occurred": "FIRST_OCCURRENCE_DATE",
-             "date": "FIRST_OCCURRENCE_DATE",
-             "time": "FIRST_OCCURRENCE_DATE",
-             "first occurrence": "FIRST_OCCURRENCE_DATE",
-             "first occurred": "FIRST_OCCURRENCE_DATE",
-             "reported date": "REPORTED_DATE",
-             "reported": "REPORTED_DATE",
-             "incident address": "INCIDENT_ADDRESS",
-             "address": "INCIDENT_ADDRESS",
-             "location": "INCIDENT_ADDRESS",
-             "precinct id": "PRECINCT_ID",
-             "precinct": "PRECINCT_ID",
-             "neighborhood id": "NEIGHBORHOOD_ID",
-             "neighborhood": "NEIGHBORHOOD_ID",
-             "offense code": "OFFENSE_CODE",
-             "code": "OFFENSE_CODE",
-             "offense name": "OFFENSE_TYPE_NAME",
-             "offense category": "OFFENSE_CATEGORY_NAME",
-             "crime": "IS_CRIME",
-             "is crime": "IS_CRIME",
-             "traffic": "IS_TRAFFIC",
-             "is traffic": "IS_TRAFFIC"}
+userInput = {"incident id": "fld_incident_id",
+             "incident": "fld_incident_id",
+             "offense id": "fld_offense_id",
+             "offense": "fld_offense_id",
+             "occurred": "fld_first_occurence_date",
+             "date": "fld_first_occurence_date",
+             "time": "fld_first_occurence_date",
+             "first occurrence": "fld_first_occurence_date",
+             "first occurred": "fld_first_occurence_date",
+             "reported date": "fld_reported_date",
+             "reported": "fld_reported_date",
+             "incident address": "fld_incident_address",
+             "address": "fld_incident_address",
+             "location": "fld_incident_address",
+             "precinct id": "fld_precinct_id",
+             "precinct": "fld_precinct_id",
+             "neighborhood id": "fld_neighborhood_id",
+             "neighborhood": "fld_neighborhood_id",
+             "offense code": "fld_offense_code",
+             "code": "fld_offense_code",
+             "offense name": "fld_offense_type",
+             "name": "fld_offense_type",
+             "crimes": "fld_offense_type",
+             "offense category": "fld_offense_category",
+             "crime": "fld_is_crime",
+             "is crime": "fld_is_crime",
+             "traffic": "fld_is_traffic",
+             "is traffic": "fld_is_traffic"}
 
 def QueryTop10(key, column, return_column):
     key = '\'' + key + '\''  # pad key with quotes to ensure dashes, spaces, and underscores are included
@@ -74,3 +76,20 @@ def QueryOne(key, column, return_column):
     return_string = "The {rc} for that {cl} is: ".format(cl=column, rc=return_column) + cursor.fetchall()
 
     return return_string
+
+
+def userQuery():
+    input_string = input(" ")
+    key, col, return_col = input_string.rsplit(' ', 2)
+
+    for i in userInput:
+        if col in i:
+            col_real = userInput[col]
+        if return_col in i:
+            return_real = userInput[return_col]
+
+    d = QueryTop10(key, col_real, return_real)
+    print(d)
+
+
+userQuery()
