@@ -47,12 +47,12 @@ def QueryTop10(key, column, return_column):
 
     if row:
         for item in row:
-            if item[0] != "":  # Throw away blank addresses
+            if item[0] != "":  # Throw away blank lines
                 return_string += item[0] + " -- "
                 return_string += str(item[1]) + " Occurrence(s)"
                 return_string += "\n"
-    else:  # Throw warning that searched neighborhood doesn't exist
-        return_string += 'That neighborhood does not exist. Try again with a different Neighborhood.'
+    else:  # Throw warning that searched key doesn't exist
+        return_string += '{ky} does not exist. Try again with a different key.'.format(ky=key)
 
     return return_string
 

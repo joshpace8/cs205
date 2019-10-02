@@ -60,4 +60,7 @@ def parse_query(input_string):
 
 
 dbCreate.connect_database()
-print(parse_query('offense name at offense code : 29990'))
+read = ''
+while read != 'exit':
+    read = input('> ')
+    print(parse_query(read))
