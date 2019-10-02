@@ -67,5 +67,7 @@ read = ''
 while read != 'exit':
     print("\nEnter the column, key, and return data you want to retrieve. ")
     print("(example: top crimes in neighborhood : speer)")
+    print("(example: crimes in neighborhood : speer)")
+    print("(example: crimes in offense code : 35010)")
     read = input('> ')
     print('\n' + parse_query(read))
