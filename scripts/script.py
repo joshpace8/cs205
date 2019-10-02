@@ -28,7 +28,7 @@ def parse_query(input_string):
         elif key == '':
             return 'There is no \':\' after the column or no key was entered'
         else:
-            return q.QueryTop10(key, q.userInput[column], q.userInput[return_column])
+            return q.QueryTop10(key, column, return_column)
     # crimes in column : key
     elif start == 'crimes':
         junk = read_until(string_list, 'in')
@@ -39,7 +39,7 @@ def parse_query(input_string):
         elif key == '':
             return 'There is no \':\' after the column or no key was entered'
         else:
-            return q.QueryNumCrimes(key, q.userInput[column])
+            return q.QueryNumCrimes(key, column)
     # return_column at column : key
     elif start in q.userInput:
         return_column = start.lower() + ' ' + read_until(string_list, 'at')
@@ -50,7 +50,7 @@ def parse_query(input_string):
         elif key == '':
             return 'There is no \':\' after the column or no key was entered'
         else:
-            return q.QueryOne(key, q.userInput[column], q.userInput[return_column])
+            return q.QueryOne(key, column, return_column)
     # refresh
     elif start == 'refresh':
         return dbCreate.connect_database()
