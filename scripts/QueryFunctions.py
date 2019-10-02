@@ -32,6 +32,7 @@ userInput = {"incident id": "fld_incident_id",
              "traffic": "fld_is_traffic",
              "is traffic": "fld_is_traffic"}
 
+
 def QueryTop10(key, column, return_column):
     key = '\'' + key + '\''  # pad key with quotes to ensure dashes, spaces, and underscores are included
     # Get only addresses from tblCrimes table with neighborhood ID
@@ -70,7 +71,7 @@ def QueryNumCrimes(key, column):
 def QueryOne(key, column, return_column):
     key = '\'' + key + '\''
     cursor.execute('SELECT {rc} FROM tblCrimes '
-                   'LEFT JOIN tblOffenseCode USING(fdl_offense_code)'
+                   'LEFT JOIN tblOffenseCode USING(fld_offense_code)'
                    'where {cl}={ky}'.format(cl=column, ky=key, rc=return_column))
 
     return_string = "The {rc} for that {cl} is: ".format(cl=column, rc=return_column) + cursor.fetchone()[0]
