@@ -13,6 +13,8 @@ def read_until(read_list, end_str):
 
 
 def parse_query(input_string):
+    if not input_string:
+        return 'Please input a command...'
     string_list = input_string.split()
     # top return_column in column : key
     start = string_list.pop(0).lower()
