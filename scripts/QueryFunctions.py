@@ -82,3 +82,10 @@ def QueryOne(key, column, return_column):
     return_string = "The {rc} for that {cl} is: ".format(cl=column, rc=return_column) + cursor.fetchone()[0]
 
     return return_string
+
+def dbKey(db_key):
+    db_key = ''
+    for key in userInput:
+        db_key +=  key + ', '
+        
+    return db_key
