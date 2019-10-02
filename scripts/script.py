@@ -5,9 +5,9 @@ import QueryFunctions as q
 def read_until(read_list, end_str):
     return_string = ''
     while read_list and read_list[0] != end_str:
-        return_string += read_list[0] + ' '
+        return_string += read_list[0].lower() + ' '
         del read_list[0]
-    if read_list and read_list[0] == end_str:
+    if read_list and read_list[0].lower() == end_str:
         del read_list[0]
     return return_string.strip()
 
@@ -15,7 +15,7 @@ def read_until(read_list, end_str):
 def parse_query(input_string):
     string_list = input_string.split()
     # top return_column in column : key
-    start = string_list.pop(0)
+    start = string_list.pop(0).lower()
     if start == 'top':
         return_column = read_until(string_list, 'in')
         column = read_until(string_list, ':')
@@ -52,6 +52,11 @@ def parse_query(input_string):
             return 'There is no \':\' after the column or no key was entered'
         else:
             return q.QueryNumCrimes(key, q.userInput[column])
+    # refresh
+    elif start == 'refresh':
+        dbCreate.connect_database()
+    elif start == 'help':
+        return 'HELP STUFF HERE PLEASE WRITE ME'
     else:
         return 'Data request must start with \'top\', \'crimes\', or a column name'
 
