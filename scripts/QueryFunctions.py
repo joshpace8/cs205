@@ -35,13 +35,15 @@ userInput = {"incident id": "fld_incident_id",
 
 def QueryTop10(key, column, return_column):
     key = '\'' + key + '\''  # pad key with quotes to ensure dashes, spaces, and underscores are included
+    tbl_column = userInput[column]
+    tbl_return_column = userInput[return_column]
     # Get only addresses from tblCrimes table with neighborhood ID
     cursor.execute('SELECT {rc}, COUNT({rc}) '
                    'FROM tblCrimes '
                    'LEFT JOIN tblOffenseCode USING(fld_offense_code) '
                    'WHERE {cl}={ky} '
                    'GROUP BY {rc} ORDER '
-                   'BY COUNT({rc}) DESC LIMIT 10'.format(cl=column, ky=key, rc=return_column))
+                   'BY COUNT({rc}) DESC LIMIT 10'.format(cl=tbl_column, ky=key, rc=tbl_return_column))
     row = cursor.fetchall()
     return_string = ""
 
@@ -59,9 +61,10 @@ def QueryTop10(key, column, return_column):
 
 def QueryNumCrimes(key, column):
     key = '\'' + key + '\''
+    tbl_column = userInput[column]
     cursor.execute('SELECT COUNT(*) FROM tblCrimes '
                    'LEFT JOIN tblOffenseCode USING(fld_offense_code) '
-                   'WHERE {cl}={ky}'.format(cl=column, ky=key))
+                   'WHERE {cl}={ky}'.format(cl=tbl_column, ky=key))
 
     return_string = "Total number of crimes in {ky}: ".format(ky=key) + str(cursor.fetchone()[0])
 
@@ -70,9 +73,11 @@ def QueryNumCrimes(key, column):
 
 def QueryOne(key, column, return_column):
     key = '\'' + key + '\''
+    tbl_column = userInput[column]
+    tbl_return_column = userInput[return_column]
     cursor.execute('SELECT {rc} FROM tblCrimes '
                    'LEFT JOIN tblOffenseCode USING(fld_offense_code)'
-                   'where {cl}={ky}'.format(cl=column, ky=key, rc=return_column))
+                   'where {cl}={ky}'.format(cl=tbl_column, ky=key, rc=tbl_return_column))
 
     return_string = "The {rc} for that {cl} is: ".format(cl=column, rc=return_column) + cursor.fetchone()[0]
 

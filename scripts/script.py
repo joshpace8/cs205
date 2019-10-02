@@ -58,10 +58,11 @@ def parse_query(input_string):
     elif start == 'help':
         return 'HELP STUFF HERE PLEASE WRITE ME'
     else:
-        return 'Data request must start with \'top\', \'crimes\', or a column name'
+        return 'Invalid query. Must start with \'top\', \'crimes\', or a column name.' \
+               '\n You can also enter \'exit\', \'refresh\', or \'help\''
 
 
-dbCreate.connect_database()
+#dbCreate.connect_database()
 read = ''
 while read != 'exit':
     read = input('> ')
