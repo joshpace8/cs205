@@ -83,7 +83,7 @@ def QueryOne(key, column, return_column):
 
     return return_string
 
-def dbKey(db_key):
+def dbKey():
     db_key = ''
     for key in userInput:
         db_key +=  key + ', '

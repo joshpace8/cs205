@@ -60,12 +60,14 @@ def parse_query(input_string):
         return 'Exiting...'
     elif start == 'help':
         return 'TOP 10 DATA POINTS SYNTAX:\n' \
-               'top return column in column : key \n' \
+               'top return column in column : key \n\n' \
                'CRIME COUNT SYNTAX:\n' \
-               'crimecount in column : key\n' \
+               'crimecount in column : key\n\n' \
                '1 DATAPOINT SYTAX:\n' \
                'return column at column : key\n\n' \
                'OTHER COMMANDS : help, exit, columns, refresh'
+    elif start == 'columns':
+        return q.dbKey()
     else:
         return 'Data request must start with \'top\', \'crimecount\', or a column name\n' \
                'Type \'help\' for more info'
@@ -73,10 +75,10 @@ def parse_query(input_string):
 
 dbCreate.connect_database()
 read = ''
+print("Enter the column, key, and return data you want to retrieve. ")
+print("(example: top crimes in neighborhood : speer)")
+print("(example: crimecount in neighborhood : speer)")
+print("(example: crimes in offense code : 35010)")
 while read != 'exit':
-    print("\nEnter the column, key, and return data you want to retrieve. ")
-    print("(example: top crimes in neighborhood : speer)")
-    print("(example: crimecount in neighborhood : speer)")
-    print("(example: crimes in offense code : 35010)")
     read = input('> ')
-    print('\n' + parse_query(read))
+    print('\n' + parse_query(read) + '\n')
