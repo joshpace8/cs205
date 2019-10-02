@@ -113,3 +113,5 @@ def connect_database():
     connection.commit()
     print("Done Inserting into tblOffenseCode")
     connection.close()
+
+    return 'Done Refreshing Table'

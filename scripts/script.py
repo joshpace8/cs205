@@ -23,7 +23,7 @@ def parse_query(input_string):
         if return_column not in q.userInput:
             return 'Return column does not exist or there is no \'in\'  statement'
         elif column not in q.userInput:
-            return 'Column does not exist or there is no \'in\'  statement'
+            return 'Column does not exist or there is no \':\'  statement'
         elif key == '':
             return 'There is no \':\' after the column or no key was entered'
         else:
@@ -34,7 +34,7 @@ def parse_query(input_string):
         column = read_until(string_list, ":").lower()
         key = read_until(string_list, '')
         if column not in q.userInput:
-            return 'Column does not exist or there is no \':\'  statement'
+            return 'Column does not exist or there is no \'in\'  statement'
         elif key == '':
             return 'There is no \':\' after the column or no key was entered'
         else:
@@ -52,7 +52,9 @@ def parse_query(input_string):
             return q.QueryOne(key, q.userInput[column], q.userInput[return_column])
     # refresh
     elif start == 'refresh':
-        dbCreate.connect_database()
+        return dbCreate.connect_database()
+    elif start == 'exit':
+        return 'Exiting...'
     elif start == 'help':
         return 'HELP STUFF HERE PLEASE WRITE ME'
     else:
@@ -63,4 +65,4 @@ dbCreate.connect_database()
 read = ''
 while read != 'exit':
     read = input('> ')
-    print(parse_query(read))
+    print('\n' + parse_query(read) + '\n')
