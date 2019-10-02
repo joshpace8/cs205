@@ -2,6 +2,7 @@ import dbCreate
 import QueryFunctions as q
 
 
+
 def read_until(read_list, end_str):
     return_string = ''
     while read_list and read_list[0] != end_str:
@@ -13,8 +14,6 @@ def read_until(read_list, end_str):
 
 
 def parse_query(input_string):
-    if not input_string:
-        return 'Please input a command...'
     string_list = input_string.split()
     # top return_column in column : key
     start = string_list.pop(0).lower()
@@ -60,12 +59,13 @@ def parse_query(input_string):
     elif start == 'help':
         return 'HELP STUFF HERE PLEASE WRITE ME'
     else:
-        return 'Invalid query. Must start with \'top\', \'crimes\', or a column name.' \
-               '\n You can also enter \'exit\', \'refresh\', or \'help\''
+        return 'Data request must start with \'top\', \'crimes\', or a column name'
 
 
-#dbCreate.connect_database()
+dbCreate.connect_database()
 read = ''
 while read != 'exit':
+    print("\nEnter the column, key, and return data you want to retrieve. ")
+    print("(example: top crimes in neighborhood : speer)")
     read = input('> ')
-    print('\n' + parse_query(read) + '\n')
+    print('\n' + parse_query(read))
