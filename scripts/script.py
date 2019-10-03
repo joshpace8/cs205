@@ -63,9 +63,13 @@ def parse_query(input_string):
                'top return column in column : key \n\n' \
                'CRIME COUNT SYNTAX:\n' \
                'crimecount in column : key\n\n' \
-               '1 DATAPOINT SYTAX:\n' \
+               '1 DATAPOINT SYNTAX:\n' \
                'return column at column : key\n\n' \
-               'OTHER COMMANDS : help, exit, columns, refresh'
+               'OTHER COMMANDS: \n' \
+               'help - access this text\n' \
+               'exit - close this program\n' \
+               'columns - list possible query columns\n' \
+               'refresh - load database from crime_final.csv & offense_codes_final.csv files'
     elif start == 'columns':
         return q.dbKey()
     else:
