@@ -42,17 +42,17 @@ def parse_query(input_string):
             return 'There is no \':\' after the column or no key was entered'
         else:
             return q.QueryNumCrimes(key, column)
-    # return_column at column : key
+    # return_column in column : key
     elif start in q.userInput:
-        return_column = start.lower() + ' ' + read_until(string_list, 'at')
+        return_column = start.lower() + ' ' + read_until(string_list, 'in')
         column = read_until(string_list, ':').lower()
         key = read_until(string_list, '')
         if column not in q.userInput:
-            return 'Column does not exist or there is no \':\'  statement'
+            return 'Column does not exist or there is no \'in\'  statement'
         elif key == '':
             return 'There is no \':\' after the column or no key was entered'
         else:
-            return q.QueryOne(key, column, return_column)
+            return q.QueryOne(key, column, return_column.strip())
     # refresh
     elif start == 'refresh':
         return dbCreate.connect_database()
@@ -64,7 +64,7 @@ def parse_query(input_string):
                'CRIME COUNT SYNTAX:\n' \
                'crimecount in column : key\n\n' \
                '1 DATAPOINT SYNTAX:\n' \
-               'return column at column : key\n\n' \
+               'return column in column : key\n\n' \
                'OTHER COMMANDS: \n' \
                'help - access this text\n' \
                'exit - close this program\n' \
